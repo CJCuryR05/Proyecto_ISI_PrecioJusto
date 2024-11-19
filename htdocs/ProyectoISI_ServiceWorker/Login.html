@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <style>
+        .alerta-exito {
+            display: none;
+            background-color: #4CAF50; /* Green background */
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .alerta-fallo {
+            display: none;
+            background-color: #f44336; /* Red background */
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <div class="container-form login">
+        <div class="information">
+            <div class="info-childs">
+                <h2>¡¡Bienvenido nuevamente!!</h2>
+                <p>¿No tienes una cuenta? Vuelve al inicio y selecciona registro</p>
+                <input type="button" value="Volver a inicio" id="volverInicio">
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Iniciar Sesión</h2>
+
+                <p></p>
+                <form class="form form-login" id="loginForm" action="login.php" method="post" novalidate>
+                    <div>
+                        <label>
+                            <i class='bx bx-user'></i>
+                            <input type="text" placeholder="Nombre de Usuario" name="userName" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-lock-alt'></i>
+                            <input type="password" placeholder="Contraseña" name="userPassword" required>
+                        </label>
+                    </div>
+                    <input type="submit" value="Iniciar Sesión">
+                    <div class="alerta-error">Todos los campos son obligatorios</div>
+                    <div class="alerta-exito">Inicio exitoso</div>
+                    <div class="alerta-fallo">Inicio fallido. Por favor, verifica tus credenciales.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("volverInicio").addEventListener("click", function () { window.location.href = "index.html"; });
+
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            // Prevent the form from submitting
+            event.preventDefault();
+
+            // Get user input
+            let userName = document.querySelector("input[name='userName']").value;
+            let userPassword = document.querySelector("input[name='userPassword']").value;
+
+            if (userName.trim() === "" || userPassword.trim() === "") {
+                // Show failure alert if any field is empty
+                document.querySelector(".alerta-fallo").style.display = "block";
+
+                // Hide other alerts
+                document.querySelector(".alerta-error").style.display = "none";
+                document.querySelector(".alerta-exito").style.display = "none";
+            } else {
+                // Check if the user exists in the database
+                fetch('login.php', {
+                    method: 'POST',
+                    body: new FormData(document.getElementById('loginForm'))
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === 'Inicio de sesión exitoso') {
+                            // Show success alert
+                            document.querySelector(".alerta-exito").style.display = "block";
+
+                            // Redirect to index.html after 2 seconds
+                            setTimeout(function () {
+                                window.location.href = "Categorias.html";
+                            }, 2000);
+
+                            // Hide failure alert
+                            document.querySelector(".alerta-fallo").style.display = "none";
+                        } else {
+                            // Show failure alert if user not found
+                            document.querySelector(".alerta-fallo").style.display = "block";
+
+                            // Hide other alerts
+                            document.querySelector(".alerta-error").style.display = "none";
+                            document.querySelector(".alerta-exito").style.display = "none";
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+
+    <script src="js/script.js"></script>
+    <script src="js/login_modulo.js" type="module"></script>
+    <!-- <script src="js/iffe_login.js"></script> -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar el Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

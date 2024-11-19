@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <style>
+        .queja-input {
+            width: 300px; /* Ancho del cuadro de entrada */
+            height: 200px; /* Alto del cuadro de entrada */
+            padding: 10px; /* Espacio alrededor del texto en el cuadro */
+            font-size: 16px; /* Tamaño del texto en el cuadro */
+        }
+
+        .alerta-exito {
+            display: none;
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .alerta-fallo {
+            display: none;
+            background-color: #f44336; /* Rojo */
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <div class="container-form login">
+        <div class="information">
+            <div class="info-childs">
+                <h2></h2>
+                <p>¿Finalizaste tu queja o sugerencia ? Visita otras secciones de la página volviendo al inicio</p>
+                <input type="button" value="Volver a Categorias" id="volverInicio">
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Formulario de queja o sugerencia</h2>
+
+                <p></p>
+                <form class="forma-de-queja" id="formaQueja" novalidate>
+                    <div>
+                        <label>
+                            <textarea class="queja-input" placeholder="Escriba su queja o sugerencia" name="queja" required></textarea>
+                        </label>
+                    </div>
+                    <input type="submit" value="Enviar queja o sugerencia">
+                    <div class="alerta-exito">Mensaje enviado</div>
+                    <div class="alerta-fallo">Favor no enviar el formulario en blanco</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("volverInicio").addEventListener("click", function () { window.location.href = "Categorias.html"; });
+
+        document.getElementById("formaQueja").addEventListener("submit", function (event) {
+            // Prevent the form from submitting
+            event.preventDefault();
+
+            // Check if any field is empty
+            let queja = document.querySelector("textarea[name='queja']").value;
+
+            if (queja.trim() === "") {
+                // Show failure alert
+                document.querySelector(".alerta-fallo").style.display = "block";
+
+                // Hide success alert
+                document.querySelector(".alerta-exito").style.display = "none";
+            } else {
+                // Send data to PHP script using AJAX
+                let formData = new FormData();
+                formData.append("mensaje_queja_sugerencia", queja);
+
+                fetch("guardar_queja_sugerencia.php", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success alert
+                            document.querySelector(".alerta-exito").style.display = "block";
+
+                            // Simulate a delay (e.g., for demonstration purposes)
+                            setTimeout(function () {
+                                // Reset the form and hide the success alert
+                                document.getElementById("formaQueja").reset();
+                                document.querySelector(".alerta-exito").style.display = "none";
+                            }, 2000); // 2000 milliseconds = 2 seconds (adjust as needed)
+
+                            // Hide failure alert
+                            document.querySelector(".alerta-fallo").style.display = "none";
+                        } else {
+                            // Show failure alert with error message
+                            document.querySelector(".alerta-fallo").innerText = "Error: " + data.error;
+                            document.querySelector(".alerta-fallo").style.display = "block";
+                        }
+                    })
+                    .catch(error => {
+                        // Show failure alert with error message
+                        document.querySelector(".alerta-fallo").innerText = "Error: " + error.message;
+                        document.querySelector(".alerta-fallo").style.display = "block";
+                    });
+            }
+        });
+    </script>
+
+    <script src="js/script.js"></script>
+    <script src="js/login_modulo.js" type="module"></script>
+    <!-- <script src="js/iffe_login.js"></script> -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar el Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+
+
+</body>
+</html>

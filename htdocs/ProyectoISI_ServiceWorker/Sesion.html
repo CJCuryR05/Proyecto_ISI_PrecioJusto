@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <title>FORMULARIO DE REGISTRO</title>
+    <style>
+        .alerta-fallo {
+            display: none;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .alerta-exito {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .alerta-fallo {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .alerta-error {
+            display: none;
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-form register">
+        <div class="information">
+            <div class="info-childs">
+                <h2>Bienvenido</h2>
+                <p>¿Ya tienes una cuenta? Vuelve al inicio y selecciona iniciar sesión</p>
+                <input type="button" value="Volver a inicio" id="volverInicio">
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Crear una Cuenta</h2>
+
+                <form class="form form-register" id="registroForm" novalidate>
+                    <div>
+                        <label>
+                            <i class='bx bx-user'></i>
+                            <input type="text" placeholder="Primer Nombre" name="firstName">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-user'></i>
+                            <input type="text" placeholder="Segundo Nombre" name="secondName">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-user'></i>
+                            <input type="text" placeholder="Nombre Usuario" name="userName">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-envelope'></i>
+                            <input type="email" placeholder="Correo Electrónico" name="userEmail">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-lock-alt'></i>
+                            <input type="password" placeholder="Contraseña" name="userPassword">
+                        </label>
+                    </div>
+
+                    <input type="submit" value="Registrarse">
+                    <div class="alerta-error">Todos los campos son obligatorios</div>
+                    <div class="alerta-exito" id="alerta-exito">Te registraste correctamente</div>
+                    <div class="alerta-fallo" id="alerta-fallo">Registro fallido, ya hay un usuario con ese nombre de usuario</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById("volverInicio").addEventListener("click", function () {
+            window.location.href = "index.html";
+        });
+
+        function ocultarAlertas() {
+            document.getElementById("alerta-fallo").style.display = "none";
+            document.getElementById("alerta-exito").style.display = "none";
+            document.getElementById("alerta-error").style.display = "none";
+            document.getElementById("alerta-fallo").style.display = "none";
+        }
+
+        document.querySelectorAll(".form-register input[type='text'], .form-register input[type='email'], .form-register input[type='password']").forEach(function (input) {
+            input.addEventListener("input", function () {
+                ocultarAlertas();
+            });
+        });
+
+        document.getElementById("registroForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evitar el envío del formulario
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            // Validar que todos los campos obligatorios estén llenos
+            if (formData.get("firstName") === "" || formData.get("secondName") === "" || formData.get("userName") === "" || formData.get("userEmail") === "" || formData.get("userPassword") === "") {
+                document.querySelector(".alerta-error").style.display = "block";
+                return;
+            } else {
+                document.querySelector(".alerta-error").style.display = "none";
+            }
+
+            fetch("guardar_registro.php", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("alerta-exito").style.display = "block";
+                        setTimeout(ocultarAlertas, 2000);
+                    } else {
+                        document.getElementById("alerta-fallo").style.display = "block";
+                        setTimeout(ocultarAlertas, 2000);
+                    }
+
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("alerta-fallo").style.display = "block";
+                    setTimeout(ocultarAlertas, 2000);
+                });
+        });
+    </script>
+    <script src="js/script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar el Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

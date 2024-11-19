@@ -1,0 +1,323 @@
+﻿<!DOCTYPE HTML>
+<!--
+    Minimaxing by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Precio Justo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <style>
+
+        .center-container {
+            text-align: center;
+        }
+
+        .search-container {
+            padding: 35px 0;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+        }
+
+        .form-group {
+            margin: 0 10px; /* Ajuste del margen */
+        }
+
+        .form-control {
+            width: 100%; /* Asegurar que ocupa el ancho completo del contenedor */
+            max-width: 900px;
+            border-radius: 25px; /* Borde redondeado */
+            padding-left: 30px; /* Espacio para el ícono */
+            background: #f2f2f2; /* Color de fondo */
+            border: 1px solid #ccc; /* Borde */
+            box-sizing: border-box; /* Ajuste del tamaño de la caja */
+        }
+
+            .form-control::placeholder {
+                color: #888; /* Color del texto de marcador de posición */
+            }
+
+        .btn-box {
+            text-align: center;
+            position: relative; /* Posición relativa para el ícono */
+        }
+
+        .btn {
+            border: none;
+            background: none;
+            color: #888;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute; /* Posición absoluta */
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+        }
+
+            .btn:focus {
+                outline: none; /* Quita el contorno al hacer clic */
+            }
+
+            .btn:focus-visible {
+                outline: auto; /* Restaura el contorno cuando se enfoca */
+            }
+
+                .btn:focus-visible::before {
+                    content: ''; /* Elimina el ícono */
+                }
+
+        .restaurant-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+            .restaurant-list li {
+                flex: 0 0 auto;
+                margin-right: 20px;
+                border: 1px solid #ccc; /* Añade un borde alrededor de cada restaurante */
+                padding: 20px; /* Amplía el espacio interno dentro de cada recuadro */
+                text-align: center; /* Centra el contenido */
+                width: 250px; /* Amplía el ancho de cada recuadro */
+                cursor: pointer; /* Cambia el cursor al hacer clic */
+            }
+
+            .restaurant-list img {
+                width: 100%; /* Cubre todo el ancho del recuadro */
+                height: auto; /* Ajusta la altura automáticamente */
+                border-radius: 10px; /* Borde redondeado */
+                margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+            }
+
+            .restaurant-list h3 {
+                margin: 0;
+            }
+
+            .restaurant-list p {
+                margin: 5px 0;
+            }
+
+        @media screen and (max-width: 768px) {
+            .form-group {
+                margin: 10px 0; /* Ajusta el margen para pantallas pequeñas */
+            }
+
+            .form-control {
+                width: 80%; /* Ajuste de ancho para pantallas pequeñas */
+            }
+
+            .btn {
+                position: static; /* Posición estática para pantallas pequeñas */
+                transform: none;
+                display: block;
+                margin: 10px auto 0;
+            }
+
+            .form-row {
+                flex-direction: column; /* Apila los elementos verticalmente en pantallas pequeñas */
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <div id="header-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <header id="header">
+                            <h1 style="text-transform: uppercase"><a href="index.html" id="logo">Inicio</a></h1>
+                            <div class="center-container search-container">
+                                <nav id="nav">
+                                    <a href="Queja.html">Formular Queja</a>
+                                </nav>
+                            </div>
+                        </header>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div id="main">
+            <div class="container">
+                <section>
+                    <h2 style="text-transform: uppercase;">Categorias</h2>
+                    <ul class="restaurant-list">
+                        <li>
+                            <a href="CategoriaCrepes.php">
+                                <!-- Enlace para redireccionar -->
+                                <div>
+                                    <img src="images/Crepes.jpg" alt="Restaurante 2">
+                                    <h3>Crepes</h3>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="CategoriaPerrosCalientes.php">
+                                <!-- Enlace para redireccionar -->
+                                <div>
+                                    <img src="images/perros.jpeg" alt="Restaurante 2">
+                                    <h3>Perros Calientes(Hot Dogs)</h3>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="CategoriaCafe.php">
+                                <!-- Enlace para redireccionar -->
+                                <div>
+                                    <img src="images/cafe.jpg" alt="Restaurante 3">
+                                    <h3>Café (Coffe)</h3>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="CategoriaEnsaladas.php">
+                                <!-- Enlace para redireccionar -->
+                                <div>
+                                    <img src="images/ensalada.jpeg" alt="Restaurante 4">
+                                    <h3>Ensaladas (Salads)</h3>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="CategoriaSandwiches.php">
+                                <!-- Enlace para redireccionar -->
+                                <div>
+                                    <img src="images/sandwich.jpg" alt="Restaurante 5">
+                                    <h3>Sandwiches</h3>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="CategoriaWaffles.php">
+                                <!-- Enlace para redireccionar -->
+                                <div>
+                                    <img src="images/Waffles.jpeg" alt="Restaurante 6">
+                                    <h3>Waffles</h3>
+                                    <p></p>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- Agrega más restaurantes según sea necesario -->
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 col-12-medium">
+
+                        <section>
+                        </section>
+
+                    </div>
+                    <div class="col-4 col-12-medium">
+
+                        <section>
+
+                            </footer>
+                        </section>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+
+                        <div id="copyright">
+                            &copy; Untitled. All rights reserved. | Design: <a href="http://html5up.net">HTML5 UP</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar el Service Worker:', error);
+                    });
+            });
+        }
+
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var producto = document.getElementById('inputProducto').value.toLowerCase();
+            var categoria = '';
+
+            // Define las categorías y los productos que pertenecen a cada una
+            var categorias = {
+                'crepes': ['creppes de lomo arabe', 'creppes de ternera', 'creppes mexicano','creppes de boloñesa, queso y champiñon'],
+                'perroscalientes': ['perro caliente vaquero callejero', 'perro caliente vaquero hawaiano','perro caliente vaquero especial'],
+                'cafe': ['cafe del dia', 'cafe latte', 'cafe expresso americano'],
+                'ensaladas': ['ensalada de pollo', 'ensalada cordero', 'sandwich personal hawaiano'],
+                'sandwiches': ['sandwich personal de pollo', 'sandwich personal especial', 'sandwich personal hawaiano'],
+                'waffles': ['waffle arequipe','waffle frutos del bosque']
+            };
+
+            // Busca la categoría correspondiente
+            for (var key in categorias) {
+                if (categorias[key].includes(producto)) {
+                    categoria = key;
+                    break;
+                }
+            }
+
+            // Redirige a la categoría correspondiente
+            if (categoria) {
+                window.location.href = 'Categoria' + categoria.charAt(0).toUpperCase() + categoria.slice(1) + '.php';
+            } else {
+                alert('Producto no encontrado.');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+<!--
+
+
+
+
+
