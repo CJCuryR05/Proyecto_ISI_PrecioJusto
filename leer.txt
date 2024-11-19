@@ -1,0 +1,2 @@
+Configurar XAMPP en una VM y en la carpeta ...XAMPP\htdocs reemplazar el contenido de htdocs con el de la carpeta htdocs del repositorio
+hacer lo mismo con la carpeta ...XAMPP\mysql , reemplazar el contenido de la carpeta mysql en el repositorio
